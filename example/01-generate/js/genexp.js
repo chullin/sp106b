@@ -6,11 +6,11 @@ var next = U.print
 // T = [0-9] | (E)
 
 function E () {
-  if (U.randInt(1, 10) <= 5) {
-    T()
-    next(U.randChar('+-*/'))
-    E()
-  } else {
+  if (U.randInt(1, 10) <= 5) {   // 
+    T()                          // 6成執行此(0.1.2.3.4.5)
+    next(U.randChar('+-*/'))     //
+    E()                          //
+  } else {                       // 4成執行此(6.7.8.9)
     T()
   }
 }

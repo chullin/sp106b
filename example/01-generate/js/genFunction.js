@@ -6,7 +6,7 @@ var p = U.probability
 // Program = Function* Stmt*
 // Function = function fname '('  ') {' Stmt* '}'  
 // Stmt = While | Assign
-// While = while Exp { Stmt+ }
+// While = while Exp { Stmt+ }    // stmt+ 代表至少有要一行
 // Assign = id '=' (Exp | Call)
 // Call = f '(' exp* ')'
 // Exp = T ([+-] T)?
@@ -37,7 +37,7 @@ function repeats (f, from=0, prob=0.5, spliter='') {
 // function fname '(' id {, id}* ') {' Stmt+ '}'  
 function Function () {
   next('function '); fname(); next('(');
-  repeats(id, 0, 0.5, ',')
+  repeats(id, 0, 0.5, ',') // 至少要0次  有0.5的機率在產生下一個變數  中間用逗點隔開
   next(') {\n')
   level ++
   repeats(Stmt, 1)

@@ -1,11 +1,11 @@
 var U = require('./util')
-var next = U.print
+var next = U.print      // next 等於 Print 印出
 var p = U.probability
 
 // === BNF Grammar =====
 // StmtList = Stmt+
 // Stmt = While | Assign
-// While = while '(' Exp ')' { StmtList }
+// While = while Exp { StmtList }
 // Assign = id '=' Exp
 // Exp = T ([+-] T)?
 // T = F ([*/] F)?
@@ -20,7 +20,7 @@ function indent() {
 function StmtList () {
   do {
     Stmt()
-  } while (p(0.5))
+  } while (p(0.5))    // 0.5 的機率產生
 }
 
 function Stmt () {
@@ -32,8 +32,8 @@ function Stmt () {
 }
 
 function While () {
-  indent(); next('while ('); Exp(); next(') {\n')
-  level ++; StmtList(); level --
+  indent(); next('while ('); Exp(); next(') {\n')   // indent 縮排
+  level ++; StmtList(); level --                    // level 層次
   indent(); next('}\n')
 }
 
@@ -71,4 +71,4 @@ function F () {
   }
 }
 
-While()
+StmtList()

@@ -3,8 +3,8 @@ var next = U.print
 
 // === BNF Grammar =====
 // Assign = id '=' Exp
-// Exp = T ([+-] T)?
-// T = F ([*/] F)?
+// Exp = T ([+-] T)?     // 問號表示可以出現，或可以不出現(正規表達式) '*' 0次以上或無限 '+' 1次以上一定要出現
+// T = F ([*/] F)?       // F 乘除
 // F = [0-9] | (Exp)
 
 var idList = ['x', 'y', 'z', 'a', 'b', 'c']
