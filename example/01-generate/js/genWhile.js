@@ -13,8 +13,8 @@ var p = U.probability
 
 var level = 0
 
-function indent() {
-  next(''.padStart(level * 2))
+function indent() {                // 所排
+  next(''.padStart(level * 2))     // 印出空白
 }
 
 function StmtList () {
