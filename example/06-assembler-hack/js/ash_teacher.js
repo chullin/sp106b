@@ -90,57 +90,25 @@ function addSymbol(symbol) {  // 增加變數或標記
 
 assemble(file+'.asm', file+'.hack');
 
-function assemble(asmFile, objFile) {    // assemble(輸入, 輸出)
+function assemble(asmFile, objFile) {             
   var asmText = fs.readFileSync(asmFile, "utf8"); // 讀取檔案到 text 字串中
-                          
-  var lines   = asmText.split(/\r?\n/);  // 將組合語言分割成一行一行 
-                        // \r carrige return(回車鍵Enter)  回到開頭
-                        // \n 換行
-                        //  ? 比對前一個字元，0次或1次
-                      // windos 換行為 \r\n 
-                      // linux  換行為   \n
-                      // split("t")   111t222t333t
-                      // -> {111, 222, 333} 以 t 分割 
-  c.log(JSON.stringify(lines, null, 2)); // c.log = console.log
-     // JSON.stringify(str, null, 2) 使用兩個空格縮排
+  var lines   = asmText.split(/\r?\n/);          
+  c.log(JSON.stringify(lines, null, 2));          
   pass1(lines);
   pass2(lines, objFile);
 } 
 
 function parse(line, i) {
-  line.match(/^([^\/]*)(\/.*)?$/); // 在正規表達式裡搜索並匹配
-        //    ^ 開頭          $ 結尾
-        // 比對 ([^\/]*)(\/.*) 0次或1次
-        //    比對不要 / 0次或更多次
-        //             (\/.*)  
-        //               /後面的東西 0次或更多次
-        // 比對 註解
+  line.match(/^([^\/]*)(\/.*)?$/);                      // 在正規表達式裡搜索並匹配
   line = RegExp.$1.trim();
   if (line.length===0)
     return null;
-  if (line.startsWith("@")) {    // 檢查是否以 @ 為開始
-    return { type:"A", arg:line.substring(1).trim() } // ture
-                            //  substring(1) 去掉前面1個字元 
-                            //               trim() 刪除空格
-  } else if (line.match(/^\(([^\)]+)\)$/)) {   // ex:(LOOP)
-                   //      (         )
-                   //      比對 不要) 0次或1次以上
-                   // ^ 開頭 、  ^   不要
-    return { type:"S", symbol:RegExp.$1 } // symbol
-                  //       RegExp 為正規表達式的比對結果  $1 的第一區
+  if (line.startsWith("@")) {                           // 檢查是否以 @ 為開始
+    return { type:"A", arg:line.substring(1).trim() }   // ture
+  } else if (line.match(/^\(([^\)]+)\)$/)) {            // ex:(LOOP)
+    return { type:"S", symbol:RegExp.$1 }               // symbol
   } else if (line.match(/^((([AMD]*)=)?([AMD01\+\-\&\|\!]*))(;(\w*))?$/)) {
-                      //   [AMD]* AMD 0次或更多                        
-                 //  (([AMD]*)=)? AMD = 0次或一次
-                 //                    ([AMD01\+\-\&\|\!]*) 
-                 //                  A、M、D、0、1、+、-、&、|、!
-                 //                                (\w*) 比對數字、字母、底線
-                 // A = M
-                 // D;JGT
-                 // JGT
     return { type:"C", c:RegExp.$4, d:RegExp.$3, j:RegExp.$6 } // compute
-                                  // 3 = 等號前面
-                // 4 = ([AMD01\+\-\&\|\!]*)
-                                                // 6 = (\w*)
   } else {
     throw "Error: line "+(i+1);
   }
@@ -182,9 +150,8 @@ function pass2(lines, objFile) {
 }
 
 function intToStr(num, size, radix) {
-//  c.log(" num=" num +1);
+//  c.log(" num="+num);
   var s = num.toString(radix)+"";
-  //        toString(想轉成幾進位)
   while (s.length < size) s = "0" + s;
   return s;
 }
