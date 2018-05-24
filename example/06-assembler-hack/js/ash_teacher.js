@@ -99,7 +99,7 @@ function assemble(asmFile, objFile) {
 } 
 
 function parse(line, i) {
-  line.match(/^([^\/]*)(\/.*)?$/);                      // 在正規表達式裡搜索並匹配
+  line.match(/^([^\/]*)(\/.*)?$/);                      //比對註解
   line = RegExp.$1.trim();
   if (line.length===0)
     return null;

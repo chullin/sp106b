@@ -91,9 +91,9 @@ function addSymbol(symbol) {  // 增加變數或標記
 assemble(file+'.asm', file+'.hack');
 
 function assemble(asmFile, objFile) {    // assemble(輸入, 輸出)
-  var asmText = fs.readFileSync(asmFile, "utf8"); // 讀取檔案到 text 字串中
+  var asmText = fs.readFileSync(asmFile, "utf8"); // 讀取檔案到 text 字串中    // 第一步驟：讀取文字導
                           
-  var lines   = asmText.split(/\r?\n/);  // 將組合語言分割成一行一行 
+  var lines   = asmText.split(/\r?\n/);  // 將組合語言分割成一行一行            // 第二步驟：拆行變陣列
                         // \r carrige return(回車鍵Enter)  回到開頭
                         // \n 換行
                         //  ? 比對前一個字元，0次或1次
@@ -150,10 +150,12 @@ function pass1(lines) {
   c.log("============== pass1 ================");
   var address = 0;
   for (var i=0; i<lines.length; i++) {
+  //      var lines   = asmText.split(/\r?\n/);  一行一行的內容
     var p = parse(lines[i], i);
     if (p===null) continue;
     if (p.type === "S") {
       c.log(" symbol: %s %s", p.symbol, intToStr(address, 4, 10));
+ //  console.log
       symTable[p.symbol] = address;
       continue;
     } else {
@@ -189,10 +191,12 @@ function intToStr(num, size, radix) {
   return s;
 }
 
-function toCode(p) {
+function toCode(p) {                          // 最後一步驟：轉成機器碼
+  // var p = parse(lines[i], i);
   var address; 
   if (p.type === "A") {
     if (p.arg.match(/^\d+$/)) {
+      //        \d+ 比對數字
       address = parseInt(p.arg);
     } else {
       address = symTable[p.arg]; 
