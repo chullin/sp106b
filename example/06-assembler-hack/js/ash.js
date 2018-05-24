@@ -199,10 +199,11 @@ function toCode(p) {                          // 最後一步驟：轉成機器�
       //        \d+ 比對數字
       address = parseInt(p.arg);
     } else {
-      address = symTable[p.arg]; 
+      address = symTable[p.arg];
       if (typeof address === 'undefined') {
         address = symTop;
-        addSymbol(p.arg, address);        
+        addSymbol(p.arg, address);
+        // throw new Error(p.arg + '===undefined')
       }
     }
     return address; 
