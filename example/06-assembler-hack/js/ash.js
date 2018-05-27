@@ -160,8 +160,11 @@ function pass1(lines) {
       continue;
     } else {
       c.log(" p: %j", p);
+      console.log("...............................");
     }
     c.log("%s:%s %s", intToStr(i+1, 3, 10), intToStr(address, 4, 10),  lines[i]);
+    //                     7+1 ,  008,十進位             0000              @2
+    //                     8+1 ,  009,十進位             0001             D=A
     address++;
   }
 }
@@ -198,6 +201,7 @@ function toCode(p) {                          // 最後一步驟：轉成機器�
     if (p.arg.match(/^\d+$/)) {
       //        \d+ 比對數字
       address = parseInt(p.arg);
+      //  parseInt()可解析一個字符串，並返回一個整数。
     } else {
       address = symTable[p.arg];
       if (typeof address === 'undefined') {
