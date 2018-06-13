@@ -120,13 +120,14 @@ function parse(line, i) {
     return null;
   if (line.startsWith("@")) {    // 檢查是否以 @ 為開始
     return { type:"A", arg:line.substring(1).trim() } // ture
-                            //  substring(1) 去掉前面1個字元 
+                            //  substring(start,stop) :用於提取字符串中介於兩個指定下標之間的字符
                             //               trim() 刪除空格
+                            //因為第一個符號是0，是@
   } else if (line.match(/^\(([^\)]+)\)$/)) {   // ex:(LOOP)
                    //      (         )
                    //      比對 不要) 0次或1次以上
                    // ^ 開頭 、  ^   不要
-    return { type:"S", symbol:RegExp.$1 } // symbol
+    return { type:"S", symbol:RegExp.$1 } // symbol:符號
                   //       RegExp 為正規表達式的比對結果  $1 的第一區
   } else if (line.match(/^((([AMD]*)=)?([AMD01\+\-\&\|\!]*))(;(\w*))?$/)) {
                       //   [AMD]* AMD 0次或更多                        
@@ -157,6 +158,7 @@ function pass1(lines) {
       c.log(" symbol: %s %s", p.symbol, intToStr(address, 4, 10));
  //  console.log
       symTable[p.symbol] = address;
+ // 如果是符號，就加進符號表，記住他的位子
       continue;
     } else {
       c.log(" p: %j", p);

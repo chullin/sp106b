@@ -1,0 +1,44 @@
+CC := gcc
+AR := ar
+## = 是最基本的賦值
+## := 會覆蓋變數之前的值
+CFLAGS = -O0
+TARGET = run.o
+LIB = libstat.a
+
+all: $(TARGET)
+
+$(TARGET): $(LIB) main.o
+	$(CC) $(CFLAGS) $^ -L ./ -lstat -o $@
+
+$(LIB): sum.o
+## 想要創建 libstat.a 檔，他的輸入是 sum.o
+	$(AR) -r $@ $^
+## 將 sum.o 檔，壓縮到 libstat.a
+
+%.o: %.c
+## (目標文件): (依賴文件)
+	$(CC) -c $< -o $@
+## 將 .c 檔 輸出到 .o 檔
+## 目標都是 .o 檔，但是都是從 .c 檔 編譯而成
+
+clean:
+	rm -f *.o *.a
+## 清掉 .o 檔 .a 檔
+
+## Internet:04-makeLib mac041$ make
+## gcc -c sum.c -o sum.o
+## ar -r libstat.a sum.o
+## ar: creating archive libstat.a
+## gcc -c main.c -o main.o
+## gcc -O0 libstat.a main.o -L ./ -lstat -o run.o
+
+## gcc -c 只編譯不連結，因為不連結，所以不會產生一個可執行檔
+## ar -r 全部壓縮
+## .a 檔 是預設的函式庫副檔名
+## -L 我想要連結的函示庫在哪一個資料夾裡面
+## -L ./ 我想連結的函示庫在 ./ 這個資料夾裡面
+## -lstst => libstat.a (lib、.a)不用打 (為預設規則)
+## 並且輸出到 TARGET
+## 只能用 Tab 縮排
+

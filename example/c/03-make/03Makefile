@@ -1,0 +1,31 @@
+CC := gcc
+CFLAGS = -O0
+## -O0 => 第０等的最佳化，沒有最佳化
+## ex: -O3 第３等級最佳話，最佳化
+
+TARGET = run.o
+
+all: $(TARGET)
+## make all 會展開 traget
+
+$(TARGET): sum.c main.c
+	$(CC) $(CFLAGS) $^ -o $@
+## target 又會觸發 sum.c 和 main.c
+## $^ 依賴文件列表中的所有依賴文件
+## $(目標文件): (依賴文件)
+## $@ 目標文件 target file
+
+clean:
+	rm -f *.o
+
+## Internet:03-make mac041$ make
+## gcc -O0 sum.c main.c -o run.o
+## Internet:03-make mac041$ make clean
+## rm -f *.o
+
+## rm => remove
+
+## 要執行時打 make 即可，而不是 make all 的原因
+## 在於他會自動執行程式裡的第一個指令
+## 如果要執行其他指令，就要打名稱 ex: make clean
+
