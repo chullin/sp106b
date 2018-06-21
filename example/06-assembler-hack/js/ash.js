@@ -110,7 +110,7 @@ function assemble(asmFile, objFile) {    // assemble(輸入, 輸出)
 function parse(line, i) {
   line.match(/^([^\/]*)(\/.*)?$/); // 在正規表達式裡搜索並匹配
         //    ^ 開頭          $ 結尾
-        // 比對 ([^\/]*)(\/.*) 0次或1次
+        // 比對 ([^\/]*)(\/.*) 0次或1次   *比對前一個字元 0次或更多次
         //    比對不要 / 0次或更多次
         //             (\/.*)  
         //               /後面的東西 0次或更多次
@@ -162,7 +162,7 @@ function pass1(lines) {
       continue;
     } else {
       c.log(" p: %j", p);
-      console.log("...............................");
+      console.log("\n");
     }
     c.log("%s:%s %s", intToStr(i+1, 3, 10), intToStr(address, 4, 10),  lines[i]);
     //                     7+1 ,  008,十進位             0000              @2
