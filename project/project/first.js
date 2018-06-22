@@ -5,7 +5,7 @@ symTable =[]
 
 var symtop = 0;
 
-function addsymbolTable(symbol) {
+function symbolTable(symbol) {
     symTable[symbol] = symtop;
     symtop ++;
 }
@@ -25,8 +25,8 @@ function step_one(lines) {
     }
 } 
 
-function intTostring(num, size, redix) {
-  var x = num.toString(redix)+ " "
+function intTostring(num, size, radix) {
+  var x = num.toString(radix)+ " "
   while (x.length < size) x = "0"+ x;
   return x;
 }

@@ -5,9 +5,12 @@
 
 // Computes R0 = 2 + 3
 
+(LOOP)
 @2  // 看看是不是會不見
 D=A
 @3
 D=D+A
+(SECOND)
 @0
 M=D
+(END)

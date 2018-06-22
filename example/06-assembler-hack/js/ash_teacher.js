@@ -104,7 +104,7 @@ function parse(line, i) {
   if (line.length===0)
     return null;
   if (line.startsWith("@")) {                           // 檢查是否以 @ 為開始
-    return { type:"A", arg:line.substring(1).trim() }   // ture
+    return { type:"A", value:line.substring(1).trim() }   // ture
   } else if (line.match(/^\(([^\)]+)\)$/)) {            // ex:(LOOP)
     return { type:"S", symbol:RegExp.$1 }               // symbol
   } else if (line.match(/^((([AMD]*)=)?([AMD01\+\-\&\|\!]*))(;(\w*))?$/)) {
@@ -159,13 +159,13 @@ function intToStr(num, size, radix) {
 function toCode(p) {
   var address; 
   if (p.type === "A") {
-    if (p.arg.match(/^\d+$/)) {
-      address = parseInt(p.arg);
+    if (p.value.match(/^\d+$/)) {
+      address = parseInt(p.value);
     } else {
-      address = symTable[p.arg]; 
+      address = symTable[p.value]; 
       if (typeof address === 'undefined') {
         address = symTop;
-        addSymbol(p.arg, address);        
+        addSymbol(p.value, address);        
       }
     }
     return address; 
