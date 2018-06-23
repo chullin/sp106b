@@ -105,6 +105,7 @@ function assemble(asmFile, objFile) {    // assemble(輸入, 輸出)
      // JSON.stringify(str, null, 2) 使用兩個空格縮排
   pass1(lines);
   pass2(lines, objFile);
+  console.log(symTable);
 } 
 
 function parse(line, i) {
@@ -161,7 +162,7 @@ function pass1(lines) {
  // 如果是符號，就加進符號表，記住他的位子
       continue;
     } else {
-      c.log(" p: %j", p);
+      c.log(" p: %j", p);  // %j 以 JSON 格式印出
     }
     c.log("%s:%s %s", intToStr(i+1, 3, 10), intToStr(address, 4, 10),  lines[i]);
     //                     7+1 ,  008,十進位             0000              @2

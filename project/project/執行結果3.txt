@@ -1,0 +1,35 @@
+---------------------------------
+line[7] : {"type":"S","symbol":"LOOP"}
+008 (LOOP)
+
+
+line[8] : {"type":"A","value":"2"}
+009 @2  // 看看是不是會不見
+
+
+line[9] : {"type":"C","comp":"","dest":"A","jump":""}
+010 D=A
+
+
+line[10] : {"type":"A","value":"3"}
+011 @3
+
+
+line[11] : {"type":"C","comp":"","dest":"D+A","jump":""}
+012 D=D+A
+
+
+line[12] : {"type":"S","symbol":"SECOND"}
+013 (SECOND)
+
+
+line[13] : {"type":"A","value":"0"}
+014 @0
+
+
+line[14] : {"type":"C","comp":"","dest":"D","jump":""}
+015 M=D
+
+
+line[15] : {"type":"S","symbol":"END"}
+016 (END)

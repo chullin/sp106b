@@ -157,8 +157,10 @@ function pass1(lines) {
     if (p.type === "S") {
       c.log(" symbol: %s %s", p.symbol, intToStr(address, 4, 10));
  //  console.log
-      symTable[p.symbol] = address;
+      symTable[p.symbol] = address; // 字典
  // 如果是符號，就加進符號表，記住他的位子
+ // dictionary['value'] = key
+ // dictionary = {key:"value"}
       continue;
     } else {
       c.log(" p: %j", p);
@@ -200,7 +202,7 @@ function toCode(p) {                          // 最後一步驟：轉成機器�
   // var p = parse(lines[i], i);
   var address; 
   if (p.type === "A") {
-    if (p.arg.match(/^\d+$/)) {
+    if (p.arg.match(/^\d+$/)) { // 留下數字並交給pass2去inTostring
       //        \d+ 比對數字
       address = parseInt(p.arg);
       //  parseInt()可解析一個字符串，並返回一個整数。

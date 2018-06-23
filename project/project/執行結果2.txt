@@ -1,0 +1,36 @@
+---------------------------------
+line[0] : null
+001 // This file is part of www.nand2tetris.org
+line[1] : null
+002 // and the book "The Elements of Computing Systems"
+line[2] : null
+003 // by Nisan and Schocken, MIT Press.
+line[3] : null
+004 // File name: projects/06/add/Add.asm
+line[4] : null
+005
+line[5] : null
+006 // Computes R0 = 2 + 3
+line[6] : null
+007
+line[7] : {"type":"S","symbol":"LOOP"}
+008 (LOOP)
+2
+line[8] : {"type":"A","value":"2"}
+009 @2  // 看看是不是會不見
+line[9] : {"type":"C","comp":"","dest":"A","jump":""}
+010 D=A
+3
+line[10] : {"type":"A","value":"3"}
+011 @3
+line[11] : {"type":"C","comp":"","dest":"D+A","jump":""}
+012 D=D+A
+line[12] : {"type":"S","symbol":"SECOND"}
+013 (SECOND)
+0
+line[13] : {"type":"A","value":"0"}
+014 @0
+line[14] : {"type":"C","comp":"","dest":"D","jump":""}
+015 M=D
+line[15] : {"type":"S","symbol":"END"}
+016 (END)
