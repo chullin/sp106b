@@ -94,13 +94,14 @@ function addsymbol(symbol) {
 
      assemble(file+'.asm', file+'.hack');
 function assemble(asmFile, objFile) {
+
   var asmtext = fs.readFileSync(asmFile, "utf8");
   var lines   = asmtext.split(/\r?\n/);
   console.log(JSON.stringify(lines, null, 2));
-      fs.writeFileSync(file,asmtext);
+      fs.writeFileSync(file,asmtext.txt);
       step_one(lines);
       step_two(lines);
-      step_three(lines);
+      step_three(lines,objFile);
       console.log('\n');
       console.log(symbolTable);  // 檢查用
 }
@@ -160,14 +161,19 @@ function step_two(lines) {
   }
 }
 
-function step_three(lines) {
+function step_three(lines, objFile) {
   console.log('-----------------step three------------------');
+  var ws = fs.createWriteStream(objFile);
+  ws.once('open', function(fd) {
     for(var i=0; i<lines.length; i++){
       var p = parse(lines[i],i);
       if (p===null || p.type === "S") continue;
       var code = toCode(p);
       console.log("%s:%s %s", inTostring(i+1, 3, 10), inTostring(code, 16, 2), lines[i]);
+      ws.write(inTostring(code, 16, 2)+"\n");
     }
+    ws.end();
+  });
 }
 
 function toCode(p) {
@@ -195,7 +201,7 @@ function toCode(p) {
     //console.log('d-------------------------------'+dtable[p.dest]);
     //console.log('c-------------------------------'+ctable[p.comp]);
     //console.log('j-------------------------------'+jtable[p.jump]);
-    // return 0b111<<13|ccode<<6|dcode<<3|jcode;
-    return '111'+ccode+dcode+jcode;
+    return 0b111<<13|ccode<<6|dcode<<3|jcode;
+    // return '111'+ccode+dcode+jcode;
   }
 }

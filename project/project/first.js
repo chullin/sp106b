@@ -15,7 +15,7 @@ function input(infile, outfile) {
     var text = fs.readFileSync(infile,'utf-8');
     var lines = text.split(/\r?\n/);
     console.log(JSON.stringify(lines, null, 2));
-    fs.writeFileSync(file,text);
+    fs.writeFileSync(file,text.txt);
     step_one(lines);
 }
 
